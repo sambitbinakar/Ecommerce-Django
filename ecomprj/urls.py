@@ -23,6 +23,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
      path("__reload__/", include("django_browser_reload.urls")),
      path("",include('store.urls')),
+     path("vendor/",include('vendor.urls')),
      path("ckeditor5/",include('django_ckeditor_5.urls'))
 ]
 urlpatterns+=static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

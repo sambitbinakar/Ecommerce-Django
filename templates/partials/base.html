@@ -1,0 +1,78 @@
+{% load static tailwind_tags %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet" />
+    {% tailwind_css %}
+</head>
+
+<body>
+    <nav class="container w-[95%] h-16 flex border-b items-center justify-around bg-gray-100 px-20 md:h-16  md:flex-shrink-0 fixed z-20">
+        <div class="logo">
+            <img src="{% static 'image/logo.png' %}" alt="" class="h-10">
+        </div>
+        <div class="search  h-10 w-[70%] flex relative items-center p-3 ">
+            <input type="text"
+                class=" outline-none border-none block focus:ring-blue-500 focus:border-blue-500 w-full rounded-xl  bg-gray-300 ml-5"
+                placeholder="search item's here....">
+            <i class="ri-search-line absolute ml-2 right-10 font-bold"></i>
+        </div>
+        <div class="profile font-semibold text-lg m-3 flex gap-2">
+
+            <a href="#">LogIn</a>
+            <a href="#">A seller</a>
+
+        </div>
+        <div
+            class="cart flex flex-shrink gap-3 items-center  rounded-lg bg-green-500 p-3 text-black cursor-pointer hover:scale-110 hover:bg-green-400">
+            <i class="ri-shopping-cart-2-fill"></i>
+            <h3 class="font-medium text-white">My Cart</h3>
+        </div>
+    </nav>
+    {% block content %}
+    
+    {% endblock content %}
+    <footer class="bg-neutral-200 h-72 flex p-10 justify-evenly border-t shadow-lg">
+        <div class=" flex  items-center justify-around text-sm gap-x-16">
+            <ul class="flex flex-col gap-2 pt-5">
+                <li>lane-4,Naveen Niwas, Aerodrome Area,<br> Bhubaneswar ,751020</li>
+                <li>+91 7890453269</li>
+                <li>info@mrecom.com</li>
+                <ol class="flex items-center gap-6">
+                    <li><img src="https://img.icons8.com/material/24/facebook-new.png"></img></li>
+                    <li><img width="24" height="24" src="https://img.icons8.com/material/24/instagram-new--v1.png" alt="instagram-new--v1"/></li>
+                    <li><img width="24" height="24" src="https://img.icons8.com/material/24/linkedin--v1.png" alt="linkedin--v1"/></li>
+                    <li><img width="24" height="24" src="https://img.icons8.com/material/24/twitter--v2.png" alt="twitter--v2"/></li>
+                </ol>
+            </ul>
+            <ul class="flex flex-col items-center gap-2 pt-5">
+                <li class="font-bold text-sm">SUPPORTS</li>
+                <li><a href="">Contact Us</a></li>
+                <li><a href="">About Page</a></li>
+                <li><a href="#">Shoping & Returns</a></li>
+                <li><a href="#">FAQ's Page</a></li>
+                <li><a href="#">Privacy</a></li>
+            </ul>
+            <ul class="flex flex-col items-center gap-2">
+                <li class="font-bold text-sm">COMPANY</li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Blog</a></li>
+                <li><a href="#">Aseller</a></li>
+                <li><a href="#">LogIn</a></li>
+            </ul>
+            <ul class=" flex flex-col justify-center gap-2">
+                <li class="font-bold text-sm"><h2>SUBSCRIBE</h2></li>
+                <li>Receive Update, Hot deals, discounts <br> and straight in your inbox daily</li>
+                <li> <input type="text" class=" outline-none border-transparent rounded-lg " placeholder="Enter your eamil here"></li>
+                <li></li>
+            </ul>
+        </div>
+
+    </footer>
+</body>
+
+</html>
