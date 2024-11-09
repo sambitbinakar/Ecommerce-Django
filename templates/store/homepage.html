@@ -1,6 +1,5 @@
 {% extends 'partials/base.html' %}
 {% block content %}
-<!-- {% load static tailwind_tags %} -->
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
@@ -10,10 +9,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mr.Ecomm</title>
   <link rel="shortcut icon" href="{% static 'image/favicon.png' %}" type="image/x-icon">
-  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"  rel="stylesheet"/>
   <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900&display=swap" rel="stylesheet" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet" />
-  <!-- {% tailwind_css %} -->
 </head>
 
 <body class=" bg-neutral-100  ">
@@ -38,8 +36,7 @@
       <!-- Item 1 -->
       <div class="hidden duration-700 ease-in-out" data-carousel-item>
         <img src="{% static 'image\slider\pic1.png' %}"
-          class="absolute block w-full h-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 object-top"
-          alt="slider1">
+          class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 object-top" alt="slider1">
       </div>
       <!-- Item 2 -->
       <div class="hidden duration-700 ease-in-out" data-carousel-item>
@@ -105,23 +102,84 @@
   </div>
 
   <!-- Catagories -->
-  <div class="px-16">
-    <h1 class="mb-5 text-2xl font-bold">Catagories</h1>
-    <div id="catagories_sec" class=" w-full grid grid-cols-4 gap-9 bg-transparent">
 
+    <h1 class=" text-xl font-bold text-center mt-14">Catagories</h1>
+    <div id="catagories_sec" class="px-16 grid grid-cols-7 py-10 mx-auto w-[90%] gap-2">
+      {% for catagory in catagory %}
       <a href="#" id="catagories"
-        class=" flex shadow-lg h-20 items-center gap-8 px-5 rounded-lg bg-white hover:scale-105">
-        <img src="images/category/mobile.png" alt="" class=" h-20 w-20 object-contain">
-        <h3 class="text-black font-semibold">{{ catagories.name }}</h3>
+        class=" flex shadow-lg h-20 items-center gap-4 px-5 rounded-lg bg-white hover:scale-105 mx-auto">
+        <img src="{{ catagory.image.url }}" alt="" class=" h-20 w-20 object-contain">
+        <h3 class="text-black font-bold text-sm">{{ catagory.title }}</h3>
       </a>
+    {% endfor %}  
     </div>
-  </div>
 
-
+    
   <!-- feature brands -->
-  <div class="mt-10 px-16">
-    <h1 class="mb-5 text-2xl font-bold">Feature brands</h1>
+   <h1 class="mb-5 text-xl font-bold mt-14 px-16 text-center">Available Brands</h1>
+  <div class=" ">
+    
   </div>
+
+  <!-- productlist -->
+    <h1 class="mb-5 text-xl font-bold text-center mt-14">Feature Product 🔥</h1>
+  <div class="px-16 grid grid-cols-5 py-10 mx-auto w-[90%]">
+    {% for p in feature_products %}
+    <a href=""
+      class=" w-52 transform overflow-hidden rounded-lg bg-white dark:bg-slate-800 shadow-md duration-300 hover:scale-105 hover:shadow-xl flex flex-col relative">
+      <div class="absolute top-1 right-5"><i class="ri-heart-line"></i></div>
+      <img class="h-24 w-[90%] object-contain" src="{{ p.image.url }}" alt="Product Image" />
+  
+      <div class="p-4">
+        <h2 class="mb-2 text-sm font-medium dark:text-white text-gray-900">{{p.name}}</h2>
+        <div class="">
+          {% if not p.average_rating %}
+          <i class="ri-star-s-fill"></i>
+          <i class="ri-star-s-fill"></i>
+            <i class="ri-star-s-line"></i>
+            <i class="ri-star-s-line"></i>
+            <i class="ri-star-s-line"></i>
+          {% elif p.average_rating > 0 and p.average_rating < 2 %} <i class="ri-star-s-fill"></i>
+            <i class="ri-star-s-line"></i>
+            <i class="ri-star-s-line"></i>
+            <i class="ri-star-s-line"></i>
+            <i class="ri-star-s-line"></i>
+            {% elif p.average_rating > 1 and p.average_rating < 3 %} <i class="ri-star-s-fill"></i>
+              <i class="ri-star-s-fill"></i>
+              <i class="ri-star-s-line"></i>
+              <i class="ri-star-s-line"></i>
+              <i class="ri-star-s-line"></i>
+              {% elif p.average_rating > 2 and p.average_rating < 4 %} <i class="ri-star-s-fill"></i>
+                <i class="ri-star-s-fill"></i>
+                <i class="ri-star-s-fill"></i>
+                <i class="ri-star-s-line"></i>
+                <i class="ri-star-s-line"></i>
+                {% elif p.average_rating > 3 and p.average_rating < 5 %} <i class="ri-star-s-fill"></i>
+                  <i class="ri-star-s-fill"></i>
+                  <i class="ri-star-s-fill"></i>
+                  <i class="ri-star-s-fill"></i>
+                  <i class="ri-star-s-line"></i>
+                  {% elif p.avarage_rating > 4 %}
+                  <i class="ri-star-s-fill"></i>
+                  <i class="ri-star-s-fill"></i>
+                  <i class="ri-star-s-fill"></i>
+                  <i class="ri-star-s-fill"></i>
+                  <i class="ri-star-s-fill"></i>
+                  {% endif %}
+        </div>
+        <div class="flex items-center mx-auto gap-1">
+          <p class="mr-2 text-sm font-semibold text-gray-900 dark:text-white">₹{{p.price}}</p>
+          <p class="text-sm  font-medium text-gray-500 line-through dark:text-gray-300">₹{{p.regular_price}}</p>
+          <p class="ml-auto text-xs font-medium text-green-500">{{p.percentage}}%off</p>
+          <button
+            class=" rounded-lg px-2 py-1.5 cursor-pointer text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 text-center mr-2 mb-2"><i
+              class="ri-shopping-cart-2-fill"></i></button>
+        </div>
+      </div>
+    </a>
+  {% endfor %}  
+  </div>
+  
 
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>

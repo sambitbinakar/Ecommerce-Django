@@ -67,13 +67,13 @@ class Category(models.Model):
 
 class Product(models.Model):
     name=models.CharField(max_length=255)
-    image = models.FileField(upload_to="images",blank=True,null=True,default="product.jpg")
+    image = models.ImageField(upload_to="images",blank=True,null=True,default="product.jpg")
     description = CKEditor5Field('Text',config_name='extends')
 
     category = models.ForeignKey(Category,on_delete=models.SET_NULL,null=True,blank=True)
 
-    price  = models.DecimalField(max_digits=12, decimal_places=2,default=0.0,null=True,blank=True,verbose_name="Sale Price")
-    regular_price  = models.DecimalField(max_digits=12, decimal_places=2,default=0.0,null=True,blank=True,verbose_name="Regular price")
+    price  = models.DecimalField(max_digits=12, decimal_places=0,default=0.0,null=True,blank=True,verbose_name="Sale Price")
+    regular_price  = models.DecimalField(max_digits=12, decimal_places=0,default=0.0,null=True,blank=True,verbose_name="Regular price")
 
     stock = models.PositiveIntegerField(default=0,null=True,blank="published")
     shipping = models.DecimalField(max_digits=12,default=0.00,decimal_places=2 ,null=True,blank=True, verbose_name="Shipping amount")
@@ -95,11 +95,29 @@ class Product(models.Model):
         return self.name
     
 
+    def average_rating(self):
+        return Review.objects.filter(product=self).aggregate(avg_rating=models.Avg('rating'))['avg_rating']
+    
+    def reviews(self):
+        return Review.objects.filter(product=self)
+    
+    def gallery(self):
+        return Gallery.objects.filter(product=self)
+    
+    def variants(self):
+        return Variant.objects.filter(product=self)
+    
+    def vendor_orders(self):
+        return OrderItem.objects.filter(product=self,vendor=self.vendor)
+    
+    def percentage(self):
+        sale =int(round (100*(self.regular_price-self.price))/self.regular_price)
+        return sale
+
     def save(self,*args,**kwargs):
         if not self.slug:
             self.slug = slugify(self.name)+"-"+str(shortuuid.uuid().lower()[:2])
         super(Product, self).save(*args,**kwargs)
-
 
 class Variant(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE, null=True)

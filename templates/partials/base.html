@@ -11,7 +11,7 @@
 </head>
 
 <body>
-    <nav class="container w-[95%] h-16 flex border-b items-center justify-around bg-gray-100 px-20 md:h-16  md:flex-shrink-0 fixed z-20">
+    <nav class="container w-auto mx-auto h-16 flex border-b items-center justify-around bg-gray-100 px-20 md:h-16  md:flex-shrink-0 fixed z-20 top-0 right-0 left-0">
         <div class="logo">
             <img src="{% static 'image/logo.png' %}" alt="" class="h-10">
         </div>
@@ -21,14 +21,14 @@
                 placeholder="search item's here....">
             <i class="ri-search-line absolute ml-2 right-10 font-bold"></i>
         </div>
-        <div class="profile font-semibold text-lg m-3 flex gap-2">
+        <div class="profile font-medium text-lg m-3 flex gap-2 md:flex-shrink-0 sm:text-xs">
 
             <a href="#">LogIn</a>
             <a href="#">A seller</a>
 
         </div>
         <div
-            class="cart flex flex-shrink gap-3 items-center  rounded-lg bg-green-500 p-3 text-black cursor-pointer hover:scale-110 hover:bg-green-400">
+            class="cart flex flex-shrink-0 gap-3 items-center  rounded-lg p-3 cursor-pointer text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 px-5 py-2.5 text-center mr-2 mb-2">
             <i class="ri-shopping-cart-2-fill"></i>
             <h3 class="font-medium text-white">My Cart</h3>
         </div>
