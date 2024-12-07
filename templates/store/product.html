@@ -1,0 +1,80 @@
+{% extends 'partials/base.html' %}
+{% block content %}
+{% load static %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MrEom|{{ c.title }}</title>
+    <link rel="shortcut icon" href="{% static 'image/favicon.png' %}" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900&display=swap" rel="stylesheet" />
+
+</head>
+
+<body>
+   
+    <div class="py-5 pt-10">
+
+        <section
+            class="w-fit grid grid-cols-5 gap-y-5 gap-x-4 justify-center mt-10 mb-5 mx-auto justify-items-center">
+          {% for p in products %}   
+            <div class="w-52 bg-gray-50 shadow-md rounded-xl duration-500 hover:scale-105 hover:shadow-lg border ">
+                <a href="" class="flex flex-col items-center space-x-5 space-y-2">
+                    <img src="{{ p.image.url }}" alt="" class="h-40 w-44 object-contain rounded-t-xl" />
+                    <div class=" w-52 mx-auto">
+                        <span class="text-zinc-500 mr-3 uppercase text-xs font-medium">{{ p.Brand }}</span>
+                        <p class="text-base font-medium text-zinc-700 truncate capitalize">{{ p.name }}</p>
+                        <div class="text-amber-400">
+                            {% if not p.average_rating %}
+                            <i class="ri-star-s-fill"></i>
+                            <i class="ri-star-s-fill"></i>
+                              <i class="ri-star-s-line"></i>
+                              <i class="ri-star-s-line"></i>
+                              <i class="ri-star-s-line"></i>
+                            {% elif p.average_rating > 0 and p.average_rating < 2 %} <i class="ri-star-s-fill"></i>
+                              <i class="ri-star-s-line"></i>
+                              <i class="ri-star-s-line"></i>
+                              <i class="ri-star-s-line"></i>
+                              <i class="ri-star-s-line"></i>
+                              {% elif p.average_rating > 1 and p.average_rating < 3 %} <i class="ri-star-s-fill"></i>
+                                <i class="ri-star-s-fill"></i>
+                                <i class="ri-star-s-line"></i>
+                                <i class="ri-star-s-line"></i>
+                                <i class="ri-star-s-line"></i>
+                                {% elif p.average_rating > 2 and p.average_rating < 4 %} <i class="ri-star-s-fill"></i>
+                                  <i class="ri-star-s-fill"></i>
+                                  <i class="ri-star-s-fill"></i>
+                                  <i class="ri-star-s-line"></i>
+                                  <i class="ri-star-s-line"></i>
+                                  {% elif p.average_rating > 3 and p.average_rating < 5 %} <i class="ri-star-s-fill"></i>
+                                    <i class="ri-star-s-fill"></i>
+                                    <i class="ri-star-s-fill"></i>
+                                    <i class="ri-star-s-fill"></i>
+                                    <i class="ri-star-s-line"></i>
+                                    {% elif p.avarage_rating > 4 %}
+                                    <i class="ri-star-s-fill"></i>
+                                    <i class="ri-star-s-fill"></i>
+                                    <i class="ri-star-s-fill"></i>
+                                    <i class="ri-star-s-fill"></i>
+                                    <i class="ri-star-s-fill"></i>
+                                    {% endif %}
+                          </div>
+                        <div class="flex items-center">
+                            <p class="text-lg font-semibold text-zinc-700 cursor-auto my-3"> ₹{{ p.price }}</p>
+                            <del>
+                                <p class="text-sm text-neutral-500 cursor-auto ml-2">₹{{ p.regular_price }}</p>
+                            </del>
+                        </div>
+                    </div>
+                </a>
+            </div>
+              {% endfor %}
+        </section>
+    </div>
+  
+    {% endblock content %}
+</body>
+
+</html>

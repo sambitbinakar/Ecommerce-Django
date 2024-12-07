@@ -71,7 +71,7 @@ class Product(models.Model):
     description = CKEditor5Field('Text',config_name='extends')
 
     category = models.ForeignKey(Category,on_delete=models.SET_NULL,null=True,blank=True)
-
+    Brand = models.CharField(max_length=200,null=True,blank=True,verbose_name="Brand Name" )
     price  = models.DecimalField(max_digits=12, decimal_places=0,default=0.0,null=True,blank=True,verbose_name="Sale Price")
     regular_price  = models.DecimalField(max_digits=12, decimal_places=0,default=0.0,null=True,blank=True,verbose_name="Regular price")
 
@@ -124,9 +124,9 @@ class Variant(models.Model):
     name = models.CharField(max_length=1000, verbose_name="Varient Name",null=True, blank=True)
 
     def items(self):
-        return VariantItem.object.filter(Variant=self)
+        return VariantItem.objects.filter(varient=self)
     
-    def __str_(self):
+    def __str__(self):
         return self.name
     
 
@@ -135,8 +135,8 @@ class VariantItem(models.Model):
     title = models.CharField(max_length=100, verbose_name="Item Title" , null=True, blank=True)
     content = models.CharField(max_length=1000, verbose_name="Item Content", null=True ,blank=True)
 
-    def _str__(self):
-        return self.variant.name
+    def __str__(self):
+        return self.varient.name
     
 
 class Gallery(models.Model):

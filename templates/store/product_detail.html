@@ -1,0 +1,229 @@
+{% extends 'partials/base.html' %}
+{% block content %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mr.Ecomm|| Product_detail </title>
+    <link rel="shortcut icon" href="{% static 'image/favicon.png' %}" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900&display=swap" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <div class="font-sans tracking-wide p-4 md:max-w-6xl max-lg:mx-auto pt-16 px-16">
+        <div class="flex items-center gap-12 mx-auto lg:grid-cols-5">
+            <!-- image -->
+            <div class="space-y-10 w-1/2">
+                <div class="lg:col-span-3 text-center flex items-center gap-12 relative">
+                    <div class="grid mx-auto mt-4 gap-2">
+                        {% for img in product.gallery.all %}
+                        <a href="{{img.image.url}}"
+                            class="cursor-pointer p-1 relative before:absolute before:inset-0  before:rounded rounded-lg shadow-md">
+                            <img src="{{img.image.url}}" alt="Product2" class="w-20 h-24 object-contain" />
+                        </a>
+                        {% endfor %}
+                    </div>
+                    <div class="lg:h-[450px] relative before:absolute before:inset-0  before:rounded">
+                        <img src="{{product.image.url}}" alt="Product"
+                            class="lg:w-11/12 w-96 h-full rounded object-contain p-4" />
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 gap-5 mx-auto mt-10 px-5">
+                    <div
+                        class="cart flex flex-shrink gap-3 items-center justify-center rounded-lg p-3 cursor-pointer text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600  py-2.5 text-center">
+                        <i class="ri-shopping-bag-line"></i>
+                        <h3 class="font-medium text-white">My Cart</h3>
+                    </div>
+                    <div
+                        class="cart flex flex-shrink gap-3 items-center justify-center rounded-lg p-3 cursor-pointer text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600  py-2.5 text-center ">
+                        <i class="ri-shopping-cart-2-fill"></i>
+                        <h3 class="font-medium text-white">Buy Now</h3>
+                    </div>
+                </div>
+            </div>
+
+            <div class="space-y-5 ">
+                <!-- detail -->
+                <div class="lg:col-span-2 pt-5 space-y-5 flex justify-between">
+                    <div class="flex flex-wrap items-start justify-evenly flex-col space-y-2">
+                        <h2 class="text-gray-700 font-semibold">{{ product.category.title }}</h2>
+                        <h2 class="text-xl font-bold text-gray-700">{{product.name}}</h2>
+                        <div class=" flex gap-6">
+
+                            <div class="text-amber-400 text-lg">
+                                {% if not p.average_rating %}
+                                <i class="ri-star-s-fill"></i>
+                                <i class="ri-star-s-fill"></i>
+                                <i class="ri-star-s-line"></i>
+                                <i class="ri-star-s-line"></i>
+                                <i class="ri-star-s-line"></i>
+                                {% elif p.average_rating > 0 and p.average_rating < 2 %} <i class="ri-star-s-fill"></i>
+                                    <i class="ri-star-s-line"></i>
+                                    <i class="ri-star-s-line"></i>
+                                    <i class="ri-star-s-line"></i>
+                                    <i class="ri-star-s-line"></i>
+                                    {% elif p.average_rating > 1 and p.average_rating < 3 %} <i class="ri-star-s-fill">
+                                        </i>
+                                        <i class="ri-star-s-fill"></i>
+                                        <i class="ri-star-s-line"></i>
+                                        <i class="ri-star-s-line"></i>
+                                        <i class="ri-star-s-line"></i>
+                                        {% elif p.average_rating > 2 and p.average_rating < 4 %} <i
+                                            class="ri-star-s-fill">
+                                            </i>
+                                            <i class="ri-star-s-fill"></i>
+                                            <i class="ri-star-s-fill"></i>
+                                            <i class="ri-star-s-line"></i>
+                                            <i class="ri-star-s-line"></i>
+                                            {% elif p.average_rating > 3 and p.average_rating < 5 %} <i
+                                                class="ri-star-s-fill">
+                                                </i>
+                                                <i class="ri-star-s-fill"></i>
+                                                <i class="ri-star-s-fill"></i>
+                                                <i class="ri-star-s-fill"></i>
+                                                <i class="ri-star-s-line"></i>
+                                                {% elif p.avarage_rating > 4 %}
+                                                <i class="ri-star-s-fill"></i>
+                                                <i class="ri-star-s-fill"></i>
+                                                <i class="ri-star-s-fill"></i>
+                                                <i class="ri-star-s-fill"></i>
+                                                <i class="ri-star-s-fill"></i>
+                                                {% endif %}
+
+                            </div>
+                            <p class="text-gray-700 text-base font-semibold">{{product.reviews.all.count| default:"10"}}
+                                reviews</p>
+                        </div>
+
+                    </div>
+
+                    <div class="ml-auto flex flex-wrap gap-4">
+                        <button type="button"
+                            class="px-2.5 py-1.5 bg-neutral-100 text-xs text-gray-800 rounded flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="12px" fill="currentColor"
+                                viewBox="0 0 512 512">
+                                <path
+                                    d="M453.332 85.332c0 38.293-31.039 69.336-69.332 69.336s-69.332-31.043-69.332-69.336C314.668 47.043 345.707 16 384 16s69.332 31.043 69.332 69.332zm0 0"
+                                    data-original="#000000" />
+                                <path
+                                    d="M384 170.668c-47.063 0-85.332-38.273-85.332-85.336C298.668 38.273 336.938 0 384 0s85.332 38.273 85.332 85.332c0 47.063-38.27 85.336-85.332 85.336zM384 32c-29.418 0-53.332 23.938-53.332 53.332 0 29.398 23.914 53.336 53.332 53.336s53.332-23.938 53.332-53.336C437.332 55.938 413.418 32 384 32zm69.332 394.668C453.332 464.957 422.293 496 384 496s-69.332-31.043-69.332-69.332c0-38.293 31.039-69.336 69.332-69.336s69.332 31.043 69.332 69.336zm0 0"
+                                    data-original="#000000" />
+                                <path
+                                    d="M384 512c-47.063 0-85.332-38.273-85.332-85.332 0-47.063 38.27-85.336 85.332-85.336s85.332 38.273 85.332 85.336c0 47.059-38.27 85.332-85.332 85.332zm0-138.668c-29.418 0-53.332 23.938-53.332 53.336C330.668 456.063 354.582 480 384 480s53.332-23.938 53.332-53.332c0-29.398-23.914-53.336-53.332-53.336zM154.668 256c0 38.293-31.043 69.332-69.336 69.332C47.043 325.332 16 294.293 16 256s31.043-69.332 69.332-69.332c38.293 0 69.336 31.039 69.336 69.332zm0 0"
+                                    data-original="#000000" />
+                                <path
+                                    d="M85.332 341.332C38.273 341.332 0 303.062 0 256s38.273-85.332 85.332-85.332c47.063 0 85.336 38.27 85.336 85.332s-38.273 85.332-85.336 85.332zm0-138.664C55.914 202.668 32 226.602 32 256s23.914 53.332 53.332 53.332c29.422 0 53.336-23.934 53.336-53.332s-23.914-53.332-53.336-53.332zm0 0"
+                                    data-original="#000000" />
+                                <path
+                                    d="M135.703 245.762c-7.426 0-14.637-3.864-18.562-10.774-5.825-10.218-2.239-23.254 7.98-29.101l197.95-112.852c10.218-5.867 23.253-2.281 29.1 7.977 5.825 10.218 2.24 23.254-7.98 29.101L146.238 242.965a21.195 21.195 0 0 1-10.535 2.797zm197.93 176c-3.586 0-7.211-.899-10.54-2.797L125.142 306.113c-10.22-5.824-13.801-18.86-7.977-29.101 5.8-10.239 18.856-13.844 29.098-7.977l197.953 112.852c10.219 5.824 13.8 18.86 7.976 29.101-3.945 6.91-11.156 10.774-18.558 10.774zm0 0"
+                                    data-original="#000000" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                <div class="flex items-start gap-3">
+                    <h3 class="text-2xl font-bold text-gray-700">Price</h3>
+                    <p class="text-gray-800 text-2xl font-bold">₹{{product.price}}</p>
+                    <del>
+                        <p class="text-gray-600 cursor-auto text-xl font-semibold">₹{{product.regular_price}}</p>
+                    </del>
+                    <p class=" text-lg font-medium text-green-500">{{product.percentage}}%off</p>
+                </div>
+                {% if product.stock > 0 %}
+                <p class="text-base font-medium text-green-400">In Stock</p>
+                {% else %}
+                <p class="text-base font-medium text-red-500">Out of stock</p>
+                {% endif %}
+                <div class="flex items-center gap-4">
+                    <h3 class="text-xl font-bold text-gray-700">Color</h3>
+                    <div class="flex flex-wrap gap-2 ">
+                        {% for variant in product.variants.all %}
+                        {% if variant.name == "color" %}
+                        {% for c in variant.items.all %}
+                        <button type="button"
+                            class="w-8 h-8 bg-{{ c.title }}-400 border-2  hover:border-gray-800 rounded shrink-0"></button>
+                        {% endfor %}
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="flex items-center gap-4">
+                    <h3 class="text-xl font-bold text-gray-700">Storage</h3>
+                    <div class="flex gap-2 justify-center">
+                        {% for variant in product.variants.all %}
+                        {% if variant.name == "Rom" %}
+                        {% for c in variant.items.all %}
+                        <button type="button"
+                            class=" h-8 border-2 mx-auto hover:border-blue-700 rounded shrink-0 px-3 hover:bg-blue-100">{{c.title}}</button>
+                        {% endfor %}
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-8  md:flex-wrap">
+                    <h3 class="text-xl font-bold text-gray-700">Quantity</h3>
+                    <div class="flex divide-x w-max mt-4 rounded overflow-hidden">
+                        <select name="" class="">
+                            {% for qty in product_stock_range %}
+                            <option value="{{qty}}">{{qty}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+
+                <div class="space-y-1.5">
+                    <h3 class="text-xl font-bold text-gray-700"> Description </h3>
+                    <p class=" text-gray-700 ">{{product.description|safe}}</p>
+                </div>
+
+                <div class="space-y-1.5 flex flex-col">
+                    <h3 class="text-xl font-bold text-gray-700"> Reviews </h3>
+                    <div class="flex items-start flex-col p-3 border bg-stone-300 rounded-lg ">
+                        <p class="flex items-baseline">
+                            <span class="text-gray-600 font-bold text-sm">kanha</span>
+                            <span class="ml-2 text-green-600 text-xs mt-2">verified buyer</span>
+                        </p>
+                        
+                        <p class="mt-3 text-xs font-normal px-6">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Iusto, aliquam. Animi natus exercitationem fugiat iusto, nostrum sit molestias illum corporis magni suscipit, impedit praesentium doloremque non dignissimos qui quia quae laborum?</p>
+                        <div class="flex gap-4 text-sm mt-3 px-5">
+                            <span class="text-sm font-medium">Was this review helplful?</span>
+                            <button class="flex items-center ml-6">
+                                <svg class="w-3 h-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                    <path
+                                        d="M11 0h1v3l3 7v8a2 2 0 0 1-2 2H5c-1.1 0-2.31-.84-2.7-1.88L0 12v-2a2 2 0 0 1 2-2h7V2a2 2 0 0 1 2-2zm6 10h3v10h-3V10z" />
+                                </svg>
+                                <span class="ml-2">56</span>
+                            </button>
+                            <button class="flex items-center ml-4">
+                                <svg class="w-3 h-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                    <path
+                                        d="M11 20a2 2 0 0 1-2-2v-6H2a2 2 0 0 1-2-2V8l2.3-6.12A3.11 3.11 0 0 1 5 0h8a2 2 0 0 1 2 2v8l-3 7v3h-1zm6-10V0h3v10h-3z" />
+                                </svg>
+                                <span class="ml-2">10</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <div class="mt-6 max-w-2xl">
+
+    </div>
+    <div class="">
+        <h2 class="text-lg font-semibold text-center my-10">Related products</h2>
+    </div>
+    </div>
+    {% endblock content %}
+</body>
+
+</html>
