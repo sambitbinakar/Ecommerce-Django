@@ -21,7 +21,7 @@
             class="w-fit grid grid-cols-5 gap-y-5 gap-x-4 justify-center mt-10 mb-5 mx-auto justify-items-center">
           {% for p in products %}   
             <div class="w-52 bg-gray-50 shadow-md rounded-xl duration-500 hover:scale-105 hover:shadow-lg border ">
-                <a href="" class="flex flex-col items-center space-x-5 space-y-2">
+                <a href="{% url 'store:products_detail' p.slug %}" class="flex flex-col items-center space-x-5 space-y-2">
                     <img src="{{ p.image.url }}" alt="" class="h-40 w-44 object-contain rounded-t-xl" />
                     <div class=" w-52 mx-auto">
                         <span class="text-zinc-500 mr-3 uppercase text-xs font-medium">{{ p.Brand }}</span>
@@ -61,11 +61,12 @@
                                     <i class="ri-star-s-fill"></i>
                                     {% endif %}
                           </div>
-                        <div class="flex items-center">
+                        <div class="flex items-center gap-3">
                             <p class="text-lg font-semibold text-zinc-700 cursor-auto my-3"> ₹{{ p.price }}</p>
                             <del>
                                 <p class="text-sm text-neutral-500 cursor-auto ml-2">₹{{ p.regular_price }}</p>
                             </del>
+                            <p class=" text-sm font-medium text-green-500">{{p.percentage}}%off</p>
                         </div>
                     </div>
                 </a>
